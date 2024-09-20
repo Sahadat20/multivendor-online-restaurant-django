@@ -77,7 +77,8 @@ WSGI_APPLICATION = 'restaurantOnline.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        # 'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -126,6 +127,12 @@ STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'restaurantOnline/static'
 ]
+
+# Media files configuaration
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
