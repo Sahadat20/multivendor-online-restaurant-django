@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'vendor',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,6 @@ WSGI_APPLICATION = 'restaurantOnline.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
         'ENGINE': config('ENGINE'),
         # 'ENGINE': 'mysql.connector.django',
         'NAME': config('DB_NAME'),
