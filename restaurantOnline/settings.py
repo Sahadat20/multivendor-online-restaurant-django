@@ -145,3 +145,12 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger",
    
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST') # Replace with your Webmail provider's SMTP server
+EMAIL_PORT = config('EMAIL_PORT', cast=int)  # Use the correct port (465 for SSL, 587 for TLS)
+EMAIL_USE_TLS = False  # True for TLS, False for SSL (adjust based on your provider)
+EMAIL_USE_SSL = True  # Set this to True if you're using SSL (port 465)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Your Webmail email address
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Your Webmail email password
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')  # Default from address (usually same as EMAIL_HOST_USER)

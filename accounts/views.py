@@ -4,7 +4,7 @@ from .forms import UserForm
 from vendor.forms import VendorForm
 from .models import User, UserProfile
 from django.contrib import messages, auth
-from .utils import detectUser
+from .utils import detectUser, send_verification_email
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
 
@@ -40,6 +40,7 @@ def registerUser(request):
             user.set_password(password)
             user.role = User.CUSTOMER
             user.save()
+            send_verification_email(request,user)
             messages.success(request, "Account created successfully")
             return redirect('registerUser')
         else:
@@ -73,6 +74,7 @@ def registerVendor(request):
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
+            send_verification_email(request,user)
             messages.success(request, "Account created successfully! Please wait for the approval.")
             return redirect('registerVendor')
         else:
@@ -128,4 +130,8 @@ def custDashboard(request):
 @user_passes_test(chek_role_vendor)
 def vendorDashboard(request):
     return render(request, 'accounts/vendorDashboard.html')
+
+
+def activate(request,uidb64,token):
+    return 
 
