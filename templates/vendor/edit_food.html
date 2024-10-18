@@ -22,16 +22,22 @@
                                  <hr>
                                  <button class="btn btn-secondary" onclick="history.back()" > <i class="fa fa-angle-left"></i>Back</button>
                                  <br>
-                                 <h6>Add New Category</h6>
+                                 <h6>Modify Food Item</h6>
                                 <!-- Render Form -->
-                                 <form action="{% url 'add_categor' %}" method="POST" enctype="multipart/form-data" >
+                                 <form action="{% url 'edit_food' food.id %}" method="POST" enctype="multipart/form-data" >
                                     {% csrf_token %}
                                     <div class="form-fields-set" > 
                                         <div class="row" >
                                             <div class="col-lg-12 col-md-12 col-sm-12" >
                                                 <div class="field-holder" >
-                                                    <label> Category Name * </label>
-                                                    {{form.category_name}}
+                                                    <label> Food Title * </label>
+                                                    {{form.food_title}}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12" >
+                                                <div class="field-holder" >
+                                                    <label>Category *</label>
+                                                    {{form.category}}
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12" >
@@ -40,8 +46,29 @@
                                                     {{form.description}}
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12" >
+                                                <div class="field-holder" >
+                                                    <label>Price * </label>
+                                                    {{form.price}}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12" >
+                                                <div class="field-holder" >
+                                                    <label>Image</label>
+                                                    {{form.image}}
+                                          
+                                                    <img src="{{food.image.url}}" alt="Food Image" width="50" class="mt-2" >
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-6 col-md-6 col-sm-12" >
+                                                <div class="field-holder" >
+                                                    <label>Is Available?</label>
+                                                    {{form.is_available}}
+                                                </div>
+                                            </div>
 
-                                        </div>
+                                        </div> 
                                         {%for field in form%}
                                         {%if field.errors%}
                                             {%for error in field.errors%}
@@ -51,8 +78,9 @@
                                     {%endfor%}
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-info" ><i class="fa fa-check"></i>Create</button>
-                                 </form>
+                                    <button type="submit" class="btn btn-info" ><i class="fa fa-check"></i>Update</button>
+                                    <a href="{%url 'delete_food' food.id %}" onclick="return confirm('Are you sure you want to delte it?')" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete</a>
+                                </form>
                             
                             
                             

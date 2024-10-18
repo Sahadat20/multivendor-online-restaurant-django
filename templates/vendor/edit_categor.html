@@ -20,6 +20,8 @@
                             <h5 class='text-uppercase'>Build Your Food Menu</h2>
                                
                                  <hr>
+                                 <button class="btn btn-secondary" onclick="history.back()" > <i class="fa fa-angle-left"></i>Back</button>
+                                 <br>
                                  <h6>Modify Category</h6>
                                 <!-- Render Form -->
                                  <form action="{% url 'edit_category' category.id %}" method="POST" enctype="multipart/form-data" >
@@ -50,7 +52,8 @@
                                     </div>
                                     
                                     <button type="submit" class="btn btn-info" ><i class="fa fa-check"></i>Update</button>
-                                 </form>
+                                    <a href="{%url 'delete_category' category.id %}" onclick="return confirm('Are you sure you want to delte it?')" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete</a> 
+                                </form>
                             
                             
                             
