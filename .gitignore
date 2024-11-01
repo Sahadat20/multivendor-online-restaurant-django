@@ -53,6 +53,9 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+restaurantOnline/static
+static/
+templates/
 # Unit test / coverage reports
 htmlcov/
 .tox/
