@@ -1,0 +1,9 @@
+ {% autoescape off %}
+ Hi {{user.first_name}},
+ {%if is_approved%}
+ Congratulations! Your restaurant has been approved by admin. --foodOnline
+ {%else%}
+ We're sorry ! Your restaurant is not eligable to selling food online. For more details, please contact user.first_name
+ Email: support@foodonline.com
+ {%endif%}
+ {% endautoescape %}
