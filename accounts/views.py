@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendor.models import Vendor
 from django.template.defaultfilters import slugify
+from orders.models import Order
 
 # Custom Decorator;
 # Restrict the vendor from accessing the customer page
@@ -135,7 +136,14 @@ def myAccount(request):
 @login_required(login_url='login')
 @user_passes_test(chek_role_customer)
 def custDashboard(request):
-    return render(request, 'accounts/custDashboard.html')
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    recent_orders = orders[:5]
+    context = {
+        'orders' : orders,
+        'recent_orders' : recent_orders,
+        'orders_count' : orders.count(),
+    }
+    return render(request, 'accounts/custDashboard.html', context)
 
 @login_required(login_url='login')
 @user_passes_test(chek_role_vendor)
