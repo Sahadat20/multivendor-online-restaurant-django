@@ -9,6 +9,7 @@ from accounts.views import chek_role_vendor
 from menue.models import Category , FoodItem
 from menue.forms import categoryForm,FoodItemForm
 from django.template.defaultfilters import slugify
+from orders.models import Order, OrderedFood
 
 # Create your views here.
 def get_vendor(request):
@@ -177,3 +178,22 @@ def delete_food(request, pk=None):
     food.delete()
     messages.success(request,"Food Item has been deleted successfully")
     return redirect('fooditems_by_category',food.category.id)
+
+def order_detail(request,order_number):
+    try:
+        order = Order.objects.get(order_number=order_number)
+        ordered_items = OrderedFood.objects.filter(order=order, fooditem__vendor = get_vendor(request))
+        print(ordered_items)
+        sub_total = 0
+        for item in ordered_items:
+            sub_total += item.price * item.quantity
+        context = {
+            'order' : order,
+            'ordered_items' : ordered_items,
+            'sub_total' : sub_total,
+        }
+        return render(request, 'vendor/order_detail.html',context)
+    except:
+        redirect('vendor')
+
+    

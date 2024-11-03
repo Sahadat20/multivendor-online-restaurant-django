@@ -148,7 +148,27 @@ def custDashboard(request):
 @login_required(login_url='login')
 @user_passes_test(chek_role_vendor)
 def vendorDashboard(request):
-    return render(request, 'accounts/vendorDashboard.html')
+    vendor = Vendor.objects.get(user=request.user)
+    orders = Order.objects.filter(vendors__in=[vendor.id])
+    recent_orders = orders[:5]
+    context = {
+        'orders' : orders,
+        'orders_count' : orders.count(),
+        'recent_orders' : recent_orders,
+    }
+    return render(request, 'accounts/vendorDashboard.html', context)
+@login_required(login_url='login')
+@user_passes_test(chek_role_vendor)
+def vendor_orders(request):
+    vendor = Vendor.objects.get(user=request.user)
+    orders = Order.objects.filter(vendors__in=[vendor.id])
+   
+    context = {
+        'orders' : orders,
+        'orders_count' : orders.count(),
+        'recent_orders' : orders,
+    }
+    return render(request, 'accounts/vendorOrders.html', context)
 
 
 def activate(request,uidb64,token):
